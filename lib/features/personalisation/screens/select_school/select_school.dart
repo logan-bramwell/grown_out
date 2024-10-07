@@ -20,7 +20,6 @@ class SelectSchoolScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SelectSchoolController());
-    final userController = UserController.instance;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

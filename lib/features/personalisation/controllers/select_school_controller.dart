@@ -15,8 +15,7 @@ class SelectSchoolController extends GetxController {
   final userController = UserController.instance;
   final userRepository = Get.find<UserRepository>();
   final GlobalKey<FormState> selectSchoolFormKey = GlobalKey<FormState>();
-
-  RxString selectedSchool = ''.obs;
+  final selectedSchool = ''.obs;
   final box = GetStorage();
 
   @override
@@ -53,11 +52,13 @@ class SelectSchoolController extends GetxController {
       }
 
       Map<String, dynamic> school = {
-        'SelectedSchool': selectedSchool.value.trim(),
+        'selectedSchool': selectedSchool.value.trim(),
       };
 
+      // Update the selected school in Firebase
       await userRepository.updateSingleField(school);
 
+      // Update the selected school in the local state
       userController.user.update((user) {
         user?.selectedSchool = selectedSchool.value.trim();
       });

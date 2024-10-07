@@ -7,7 +7,6 @@ import 'package:whs_deals_app/utils/helpers/helper_functions.dart';
 import '../../../../../common/widgets/images/t_circular_image.dart';
 import '../../../../../common/widgets/texts/product_price_text.dart';
 import '../../../../../utils/constants/image_strings.dart';
-import '../../../controllers/product_controller.dart';
 import '../../../models/product_model.dart';
 
 class TProductMetaData extends StatelessWidget {
@@ -18,7 +17,6 @@ class TProductMetaData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    final controller = ProductController.instance;
     return Align(
       alignment: Alignment.topLeft, // Align the content to the top left
       child: Column(

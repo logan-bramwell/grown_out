@@ -7,7 +7,6 @@ import 'package:whs_deals_app/utils/constants/colors.dart';
 import 'package:whs_deals_app/utils/constants/sizes.dart';
 import 'package:whs_deals_app/utils/helpers/helper_functions.dart';
 
-import '../../../../features/shop/controllers/product_controller.dart';
 import '../../../../features/shop/models/product_model.dart';
 import '../../../styles/shadows.dart';
 import '../../custom shapes/containers/rounded_container.dart';
@@ -20,7 +19,6 @@ class TProductCardVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = ProductController.instance;
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () => Get.to(() => ProductDetailScreen(product: product)),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,8 @@ import '../../../utils/exceptions/platform_exceptions.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
-  static final SelectSchoolController _schoolController = Get.find<SelectSchoolController>();
+  final SelectSchoolController selectSchoolController = Get.put(SelectSchoolController());
+
 
 
   /// Variables
@@ -41,13 +43,24 @@ class AuthenticationRepository extends GetxController {
     final user = _auth.currentUser;
 
     if (user != null) {
-
       if (user.emailVerified) {
-        // Check if the school is selected
-        if (_schoolController.selectedSchool.value.isEmpty == false) {
+        // Check if the school is selected in local storage
+        final selectedSchool = deviceStorage.read('SelectedSchool') ?? '';
+
+        if (selectedSchool.isNotEmpty) {
           Get.offAll(() => NavigationMenu(product: ProductModel.empty()));
         } else {
-          Get.offAll(() => const SelectSchoolScreen(firstTime: true,));
+          // If not found in local storage, check Firebase
+          final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+          final selectedSchoolFirebase = userDoc.data()?['selectedSchool'] ?? '';
+
+          if (selectedSchoolFirebase.isNotEmpty) {
+            // Save to local storage for future use
+            deviceStorage.write('SelectedSchool', selectedSchoolFirebase);
+            Get.offAll(() => NavigationMenu(product: ProductModel.empty()));
+          } else {
+            Get.offAll(() => const SelectSchoolScreen(firstTime: true));
+          }
         }
       } else {
         Get.offAll(() => VerifyEmailScreen(email: user.email));
@@ -62,7 +75,6 @@ class AuthenticationRepository extends GetxController {
           : Get.offAll(const OnBoardingScreen());
     }
   }
-
 
 
 

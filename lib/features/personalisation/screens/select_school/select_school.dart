@@ -7,6 +7,7 @@ import 'package:whs_deals_app/navigation_menu.dart';
 import 'package:whs_deals_app/utils/constants/sizes.dart';
 import '../../../shop/models/product_model.dart';
 import '../../controllers/select_school_controller.dart';
+import '../../controllers/user_controller.dart';
 
 class SelectSchoolScreen extends StatelessWidget {
   const SelectSchoolScreen({
@@ -19,7 +20,7 @@ class SelectSchoolScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SelectSchoolController());
-
+    final userController = UserController.instance;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -72,10 +73,10 @@ class SelectSchoolScreen extends StatelessWidget {
                           ? SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (controller.selectSchoolFormKey.currentState!.validate()) {
                               // Save the selected school
-                              controller.setSelectedSchool(controller.selectedSchool.value);
+                              await controller.selectSchool();
 
                               if (firstTime) {
                                 Get.offAll(() => NavigationMenu(product: ProductModel.empty()));

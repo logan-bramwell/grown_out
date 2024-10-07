@@ -21,10 +21,9 @@ Future<void> main() async {
         (FirebaseApp value) => Get.put(AuthenticationRepository()),
   );
   
-  Get.put(UserController());
-  Get.put(SelectSchoolController());
-  Get.put(AuthenticationRepository());
 
+  Get.put(SelectSchoolController());
+  Get.put(UserController());
 
   runApp(const App());
 

@@ -62,8 +62,8 @@ class TTexts {
   static const String popularProducts = "Popular Products";
 
   // -- Home
-  static const String homeAppbarTitle = "Wakatipu High School";
-  static const String homeAppbarSubTitle = "Buy, Sell, Donate, all in one place!";
+  static const String homeAppbarTitle = "Buy, Sell, Donate, all in one place!";
+  static const String communityAppbarTitle = "Connect with other parents";
 
   static const String schoolSearchBar = "Search for your school";
 

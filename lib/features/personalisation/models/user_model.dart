@@ -34,8 +34,8 @@ class UserModel {
   static UserModel empty() =>
       UserModel(
         id: '',
-        firstName: '',
-        lastName: '',
+        firstName: 'anonymous',
+        lastName: 'user',
         email: '',
         // phoneNumber: '',
         profilePicture: '',
@@ -49,7 +49,7 @@ class UserModel {
       'LastName': lastName,
       'Email': email,
       'ProfilePicture': profilePicture,
-      'SelectedSchool': selectedSchool,
+      'selectedSchool': selectedSchool,
     };
   }
 
@@ -63,8 +63,8 @@ class UserModel {
         firstName: data['FirstName'] ?? '',
         lastName: data['LastName'] ?? '',
         email: data['Email'] ?? '',
-        profilePicture: data['ProfilePicture'] ?? '',
-        selectedSchool: data['SelectedSchool'] ?? '',
+        profilePicture: data['ProfilePicture'] ?? 'https://firebasestorage.googleapis.com/v0/b/grown-out.appspot.com/o/default_user.png?alt=media&token=e62150d9-6a4c-4084-8f12-f24fcbbe2501',
+        selectedSchool: data['selectedSchool'] ?? '',
       );
     } else {
       return UserModel.empty();

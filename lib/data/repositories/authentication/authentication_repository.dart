@@ -13,6 +13,7 @@ import 'package:whs_deals_app/navigation_menu.dart';
 
 import '../../../features/authentication/screens/signup/widgets/verify_email.dart';
 import '../../../features/personalisation/controllers/select_school_controller.dart';
+import '../../../features/personalisation/controllers/user_controller.dart';
 import '../../../features/personalisation/screens/select_school/select_school.dart';
 import '../../../features/shop/models/product_model.dart';
 import '../../../utils/exceptions/firebase_auth_exceptions.dart';
@@ -22,8 +23,7 @@ import '../../../utils/exceptions/platform_exceptions.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
-  final SelectSchoolController selectSchoolController = Get.put(SelectSchoolController());
-
+  final userController = Get.put(UserController());
 
 
   /// Variables
@@ -45,7 +45,7 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       if (user.emailVerified) {
         // Check if the school is selected in local storage
-        final selectedSchool = deviceStorage.read('SelectedSchool') ?? '';
+        final selectedSchool = deviceStorage.read('selectedSchool') ?? '';
 
         if (selectedSchool.isNotEmpty) {
           Get.offAll(() => NavigationMenu(product: ProductModel.empty()));
@@ -54,9 +54,9 @@ class AuthenticationRepository extends GetxController {
           final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
           final selectedSchoolFirebase = userDoc.data()?['selectedSchool'] ?? '';
 
-          if (selectedSchoolFirebase.isNotEmpty) {
+          if (selectedSchoolFirebase.isEmpty) {
             // Save to local storage for future use
-            deviceStorage.write('SelectedSchool', selectedSchoolFirebase);
+            deviceStorage.write('selectedSchool', selectedSchoolFirebase);
             Get.offAll(() => NavigationMenu(product: ProductModel.empty()));
           } else {
             Get.offAll(() => const SelectSchoolScreen(firstTime: true));

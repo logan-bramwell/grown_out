@@ -11,7 +11,9 @@ import '../../../personalisation/controllers/select_school_controller.dart';
 class THomeAppBar extends StatelessWidget {
   final SelectSchoolController _schoolController = Get.find<SelectSchoolController>();
 
-  THomeAppBar({super.key});
+  THomeAppBar({super.key, this.text = TTexts.homeAppbarTitle});
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class THomeAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            TTexts.homeAppbarSubTitle,
+            text,
             style: Theme.of(context).textTheme.labelMedium!.apply(color: TColors.grey),
           ),
           Obx(() => Text(

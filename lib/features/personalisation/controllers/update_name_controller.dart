@@ -7,6 +7,8 @@ import 'package:whs_deals_app/utils/constants/image_strings.dart';
 import 'package:whs_deals_app/utils/popups/full_screen_loader.dart';
 import 'package:whs_deals_app/utils/validators/network_manager.dart';
 
+import '../screens/profile/widgets/profile.dart';
+
 class UpdateNameController extends GetxController {
   static UpdateNameController get instance => Get.find();
 
@@ -14,20 +16,15 @@ class UpdateNameController extends GetxController {
   final lastName = TextEditingController();
   final userController = UserController.instance;
   final userRepository = Get.put(UserRepository());
-  final GlobalKey<FormState> updateUserNameFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> updateUserNameFormKey = GlobalKey<FormState>();
 
   @override
   void onInit() {
-    super.onInit();
     initialiseNames();
+    super.onInit();
+
   }
 
-  @override
-  void onClose() {
-    firstName.dispose();
-    lastName.dispose();
-    super.onClose();
-  }
 
   Future<void> initialiseNames() async {
     firstName.text = userController.user.value.firstName;
@@ -56,17 +53,12 @@ class UpdateNameController extends GetxController {
       }
 
       // Update user's first & last name in Firebase Firestore
-      final name = {
-        'FirstName': firstName.text.trim(),
-        'LastName': lastName.text.trim(),
-      };
+      Map<String, dynamic> name = {'FirstName': firstName.text.trim(), 'LastName': lastName.text.trim(),};
       await userRepository.updateSingleField(name);
 
       // Update the Rx User value
-      userController.user.update((user) {
-        user?.firstName = firstName.text.trim();
-        user?.lastName = lastName.text.trim();
-      });
+      userController.user.value.firstName = firstName.text.trim();
+      userController.user.value.lastName = lastName.text.trim();
 
       // Remove Loader
       TFullScreenLoader.stopLoading();
@@ -78,13 +70,13 @@ class UpdateNameController extends GetxController {
       );
 
       // Move to the previous screen.
-      Get.back();
+      Get.off(() => const ProfileScreen());
     } catch (e) {
       // Stop Loading and show error
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(
         title: 'Oh Snap!',
-        message: 'Something went wrong. Please try again.',
+          message: 'Failed to update name. Please try again later.',
       );
     }
   }

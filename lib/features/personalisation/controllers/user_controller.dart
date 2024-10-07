@@ -59,11 +59,10 @@ class UserController extends GetxController {
     try {
       await fetchUserRecord();
 
-      if (user.value.id.isEmpty && userCredentials != null) {
-        final nameParts = UserModel.nameParts(
-            userCredentials.user!.displayName ?? '');
+      if (userCredentials != null) {
+        final nameParts = UserModel.nameParts(userCredentials.user!.displayName ?? '');
 
-        final newUser = UserModel(
+        final user = UserModel(
           id: userCredentials.user!.uid,
           firstName: nameParts[0],
           lastName: nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
@@ -72,7 +71,7 @@ class UserController extends GetxController {
           selectedSchool: '',
         );
 
-        await userRepository.saveUserRecord(newUser);
+        await userRepository.saveUserRecord(user);
       }
     } catch (e) {
       TLoaders.warningSnackBar(

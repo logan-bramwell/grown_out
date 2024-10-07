@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:whs_deals_app/common/widgets.login_signup/form_divider.dart';
-import 'package:whs_deals_app/common/widgets.login_signup/social_buttons.dart';
+import 'package:whs_deals_app/common/widgets/login_signup/form_divider.dart';
+import 'package:whs_deals_app/common/widgets/login_signup/social_buttons.dart';
 import 'package:whs_deals_app/features/authentication/screens/signup/widgets/signup_form.dart';
 import 'package:whs_deals_app/utils/constants/text_strings.dart';
 import '../../../../../../utils/constants/sizes.dart';

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:whs_deals_app/common/widgets/community/community_post.dart';
 import 'package:whs_deals_app/common/widgets/custom%20shapes/containers/primary_header_container.dart';
 
 import '../../../utils/constants/sizes.dart';
+import '../../../utils/constants/text_strings.dart';
 import '../../personalisation/screens/address/single_address.dart';
-import 'community_appbar.dart';
+import '../../shop/screens/widgets/home_appbar.dart';
+
 
 
 class CommunityPage extends StatelessWidget {
@@ -18,10 +21,8 @@ class CommunityPage extends StatelessWidget {
             TPrimaryHeaderContainer(
                 child: Column(
                   children: [
-                    CommunityAppBar(),
+                    THomeAppBar(text: TTexts.communityAppbarTitle),
                     const SizedBox(height: TSizes.spaceBtwSections),
-
-
                   ],
 
                 )
@@ -31,8 +32,7 @@ class CommunityPage extends StatelessWidget {
               child: Column(
                 children: [
 
-                  TSingleAddress(selectedAddress: true),
-                  TSingleAddress(selectedAddress: false,)
+                  CommunityPost()
 
                   ///SizedBox(height: TSizes.spaceBtwSections),
                 ],

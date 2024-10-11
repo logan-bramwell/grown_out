@@ -18,14 +18,14 @@ class GridViewAllScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TPrimaryHeaderContainer(
+            const TPrimaryHeaderContainer(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
                   children: [
                   /// -- Appbar --
                   THomeAppBar(),
 
-                  const SizedBox(height: TSizes.spaceBtwItems),
+                  SizedBox(height: TSizes.spaceBtwItems),
                 ],
               ),
             ),

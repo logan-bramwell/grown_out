@@ -10,23 +10,30 @@ import 'features/personalisation/controllers/user_controller.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+  // Ensure widget binding is initialized
+  WidgetsFlutterBinding.ensureInitialized();
 
-  final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
+  // Initialize GetStorage
   await GetStorage.init();
 
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // Preserve the native splash screen
+  FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then(
-        (FirebaseApp value) => Get.put(AuthenticationRepository()),
-  );
-  
+  // Initialize Firebase
+  try {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    Get.put(AuthenticationRepository());
+  } catch (e) {
+    // Handle initialization error
+    print("Error initializing Firebase: $e");
+    return; // Exit if Firebase fails to initialize
+  }
 
+  // Initialize controllers
   Get.put(SelectSchoolController());
   Get.put(UserController());
 
+  // Run the app
   runApp(const App());
-
 }
-
 

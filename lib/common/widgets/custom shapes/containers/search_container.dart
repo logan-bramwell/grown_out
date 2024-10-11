@@ -14,47 +14,67 @@ class TSearchContainer extends StatelessWidget {
     this.showBackground = true,
     this.showBorder = true,
     this.isRefineButton = false, // New parameter to check if it's a Refine button
-    this.textSize = 14, // Default text size
+    this.textSize = 14,
+    required this.onTap, // Default text size
   });
 
   final String text;
   final IconData? icon;
   final bool showBackground, showBorder, isRefineButton;
   final double textSize; // Text size parameter
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-      child: Container(
-        width: TDeviceUtils.getScreenWidth(context),
-        padding: const EdgeInsets.all(TSizes.md),
-        decoration: BoxDecoration(
-          color: showBackground ? (dark ? TColors.dark : TColors.light) : Colors.transparent,
+      child: Material(
+        color: Colors.transparent,
+        // To keep the custom background from the Container
+        child: InkWell(
+          onTap: onTap,
           borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
-          border: showBorder ? Border.all(color: TColors.grey) : null,
-        ),
-        child: isRefineButton
-            ? Center( // Center the text if it's a refine button
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              fontSize: textSize, // Apply the custom text size
+          child: Container(
+            width: TDeviceUtils.getScreenWidth(context),
+            padding: const EdgeInsets.all(TSizes.md),
+            decoration: BoxDecoration(
+              color: showBackground
+                  ? (dark ? TColors.dark : TColors.light)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
+              border: showBorder ? Border.all(color: TColors.grey) : null,
+            ),
+            child: isRefineButton
+                ? Center(
+              child: Text(
+                text,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(
+                  fontSize: textSize,
+                ),
+              ),
+            )
+                : Row(
+              children: [
+                Icon(icon, color: TColors.grey),
+                const SizedBox(width: TSizes.spaceBtwItems),
+                Text(
+                  text,
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(
+                    fontSize: textSize,
+                  ),
+                ),
+              ],
             ),
           ),
-        )
-            : Row( // Original layout for search bar with icon
-          children: [
-            Icon(icon, color: TColors.grey),
-            const SizedBox(width: TSizes.spaceBtwItems),
-            Text(
-              text,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontSize: textSize, // Apply the custom text size
-              ),
-            ),
-          ],
         ),
       ),
     );

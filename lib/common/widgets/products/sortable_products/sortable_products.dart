@@ -9,6 +9,7 @@ import '../../../../common/widgets/products/product_cards/product_card_vertical.
 import '../../../../features/shop/models/product_model.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../appbar/appbar.dart';
+import '../../bottom_sheet/bottom_sheet.dart';
 import '../../custom shapes/containers/search_container.dart';
 
 class TSortableProducts extends StatelessWidget {
@@ -48,7 +49,7 @@ class TSortableProducts extends StatelessWidget {
                 showBackArrow: true,
               ),
               const SizedBox(height: TSizes.spaceBtwHeader),
-              const TSearchContainer(text: 'Refine', isRefineButton: true, icon: Icons.list,),
+              TSearchContainer(text: 'Refine', isRefineButton: true, icon: Icons.list, onTap: () => Get.to(() => customBottomSheetComments(context))),
               DropdownButtonFormField(
                 items: ['Highest Price', 'Lowest Price', 'Newest', 'Oldest'].map((option) => DropdownMenuItem(value: option, child: Text(option))).toList(),
                   value: controller.selectedSortOption.value,

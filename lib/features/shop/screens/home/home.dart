@@ -42,9 +42,9 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
                 children: [
                   /// -- Appbar --
-                  THomeAppBar(),
+                  const THomeAppBar(),
                   const SizedBox(height: TSizes.spaceBtwHeader),
-                  const TSearchContainer(text: 'Search for an item...'),
+                  TSearchContainer(text: 'Search for an item...', onTap: (){},),
                   const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// -- Categories --

@@ -4,7 +4,6 @@ import 'package:whs_deals_app/common/widgets/custom%20shapes/containers/primary_
 
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/constants/text_strings.dart';
-import '../../personalisation/screens/address/single_address.dart';
 import '../../shop/screens/widgets/home_appbar.dart';
 
 
@@ -14,7 +13,7 @@ class CommunityPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -22,17 +21,18 @@ class CommunityPage extends StatelessWidget {
                 child: Column(
                   children: [
                     THomeAppBar(text: TTexts.communityAppbarTitle),
-                    const SizedBox(height: TSizes.spaceBtwSections),
+                    SizedBox(height: TSizes.spaceBtwSections),
                   ],
 
                 )
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(TSizes.defaultSpace),
               child: Column(
                 children: [
 
                   CommunityPost()
+
 
                   ///SizedBox(height: TSizes.spaceBtwSections),
                 ],

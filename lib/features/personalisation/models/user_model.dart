@@ -7,7 +7,6 @@ class UserModel {
   String firstName;
   String lastName;
   final String email;
-
   // String phoneNumber;
   String profilePicture;
   String selectedSchool;
@@ -34,8 +33,8 @@ class UserModel {
   static UserModel empty() =>
       UserModel(
         id: '',
-        firstName: 'anonymous',
-        lastName: 'user',
+        firstName: '',
+        lastName: '',
         email: '',
         // phoneNumber: '',
         profilePicture: '',
@@ -63,7 +62,7 @@ class UserModel {
         firstName: data['FirstName'] ?? '',
         lastName: data['LastName'] ?? '',
         email: data['Email'] ?? '',
-        profilePicture: data['ProfilePicture'] ?? 'https://firebasestorage.googleapis.com/v0/b/grown-out.appspot.com/o/default_user.png?alt=media&token=e62150d9-6a4c-4084-8f12-f24fcbbe2501',
+        profilePicture: data['ProfilePicture'] ?? '',
         selectedSchool: data['selectedSchool'] ?? '',
       );
     } else {

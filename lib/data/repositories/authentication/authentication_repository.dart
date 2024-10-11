@@ -12,7 +12,6 @@ import 'package:whs_deals_app/features/authentication/screens/onboarding/onboard
 import 'package:whs_deals_app/navigation_menu.dart';
 
 import '../../../features/authentication/screens/signup/widgets/verify_email.dart';
-import '../../../features/personalisation/controllers/select_school_controller.dart';
 import '../../../features/personalisation/controllers/user_controller.dart';
 import '../../../features/personalisation/screens/select_school/select_school.dart';
 import '../../../features/shop/models/product_model.dart';

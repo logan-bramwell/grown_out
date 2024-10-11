@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:whs_deals_app/common/widgets/appbar/appbar.dart';
 import 'package:whs_deals_app/common/widgets/images/t_circular_image.dart';
 import 'package:whs_deals_app/common/widgets/texts/section_heading.dart';
@@ -63,7 +62,6 @@ class ProfileScreen extends StatelessWidget {
               const TSectionHeading(title: 'Personal Information', showActionButton: false),
               const SizedBox(height: TSizes.spaceBtwItems),
 
-              TProfileMenu(title: 'User ID', value: controller.user.value.id, icon: Iconsax.copy, onPressed: () {}),
               TProfileMenu(title: 'E-mail', value: controller.user.value.email, onPressed: () {}),
               ///TProfileMenu(title: 'Phone Number', value: controller.user.value.phoneNumber, onPressed: () {}),
               TProfileMenu(title: 'Gender', value: 'Male', onPressed: () {}),

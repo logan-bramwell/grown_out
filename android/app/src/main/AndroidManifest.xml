@@ -1,10 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.grown_out">
+    package="com.example.grown_out"
+    android:versionCode="1"
+    android:versionName="TODO">
     <application
         android:label="grown_out"
-        android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:name="com.example.grown_out.MyApplication"
+        android:icon="@mipmap/ic_launcher"
+        tools:ignore="MissingClass">
         <activity
             android:name="com.example.grown_out.MainActivity"
             android:exported="true"
@@ -13,7 +16,8 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
-            tools:ignore="Instantiatable">
+            tools:ignore="Instantiatable"
+            tools:targetApi="honeycomb">
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme"

@@ -34,10 +34,6 @@ class SignupController extends GetxController {
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         TFullScreenLoader.stopLoading();
-        TLoaders.errorSnackBar(
-          title: "No Connection",
-          message: "Please check your internet connection and try again.",
-        );
         return;
       }
 

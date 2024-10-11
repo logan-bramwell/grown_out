@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:whs_deals_app/utils/theme/widget_themes/appbar_theme.dart';
 import 'package:whs_deals_app/utils/theme/widget_themes/bottom_sheet_theme.dart';
 import 'package:whs_deals_app/utils/theme/widget_themes/checkbox_theme.dart';
@@ -46,5 +47,41 @@ class TAppTheme {
     elevatedButtonTheme: TElevatedButtonTheme.darkElevatedButtonTheme,
     outlinedButtonTheme: TOutlinedButtonTheme.darkOutlinedButtonTheme,
     inputDecorationTheme: TTextFormFieldTheme.darkInputDecorationTheme,
+  );
+}
+
+class AppTheme {
+  static final TextStyle lightText = GoogleFonts.poppins(
+    color: AppColors.blackTextColor,
+  );
+
+  static TextStyle blackTextStyle = GoogleFonts.poppins(
+    color: AppColors.blackTextColor,
+  );
+  static TextStyle whiteTextStyle = GoogleFonts.poppins(
+    color: AppColors.whiteColor,
+  );
+  static TextStyle greyTextStyle = GoogleFonts.poppins(
+    color: AppColors.greyTextColor,
+  );
+
+  static FontWeight light = FontWeight.w300;
+  static FontWeight regular = FontWeight.w400;
+  static FontWeight medium = FontWeight.w500;
+  static FontWeight semiBold = FontWeight.w600;
+  static FontWeight bold = FontWeight.w700;
+  static FontWeight extraBold = FontWeight.w800;
+  static FontWeight black = FontWeight.w900;
+
+  static final ThemeData lightTheme = ThemeData(
+    primaryColor: AppColors.primaryColor,
+    scaffoldBackgroundColor: AppColors.whiteColor, // Keep this as it is
+    colorScheme: const ColorScheme.light().copyWith(
+      surface: AppColors.whiteColor, // This replaces backgroundColor
+      primary: AppColors.primaryColor,
+    ),
+    navigationBarTheme: const NavigationBarThemeData(
+      indicatorColor: AppColors.whiteColor,
+    ),
   );
 }

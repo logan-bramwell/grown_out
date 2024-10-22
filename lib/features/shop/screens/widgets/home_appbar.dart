@@ -9,23 +9,23 @@ import '../../../../utils/constants/text_strings.dart';
 import '../../../personalisation/controllers/select_school_controller.dart';
 
 class THomeAppBar extends StatelessWidget {
-  final SelectSchoolController _schoolController = Get.find<SelectSchoolController>();
+  const THomeAppBar({super.key, this.text = TTexts.homeAppbarTitle});
 
-  THomeAppBar({super.key});
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SelectSchoolController());
     return TAppBar(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            TTexts.homeAppbarSubTitle,
-            style: Theme.of(context).textTheme.labelMedium!.apply(color: TColors.grey),
+          Text(text, style: Theme.of(context).textTheme.labelMedium!.apply(color: TColors.grey),
           ),
           Obx(() => Text(
-            _schoolController.selectedSchool.value.isNotEmpty
-                ? _schoolController.selectedSchool.value
+            controller.selectedSchool.value.isNotEmpty
+                ? controller.selectedSchool.value
                 : 'Select Your School',
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
               fontFamily: 'Poppins',

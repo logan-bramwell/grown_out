@@ -12,7 +12,7 @@ import 'package:whs_deals_app/features/authentication/screens/onboarding/onboard
 import 'package:whs_deals_app/navigation_menu.dart';
 
 import '../../../features/authentication/screens/signup/widgets/verify_email.dart';
-import '../../../features/personalisation/controllers/select_school_controller.dart';
+import '../../../features/personalisation/controllers/user_controller.dart';
 import '../../../features/personalisation/screens/select_school/select_school.dart';
 import '../../../features/shop/models/product_model.dart';
 import '../../../utils/exceptions/firebase_auth_exceptions.dart';
@@ -22,8 +22,7 @@ import '../../../utils/exceptions/platform_exceptions.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
-  final SelectSchoolController selectSchoolController = Get.put(SelectSchoolController());
-
+  final userController = Get.put(UserController());
 
 
   /// Variables
@@ -45,7 +44,7 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       if (user.emailVerified) {
         // Check if the school is selected in local storage
-        final selectedSchool = deviceStorage.read('SelectedSchool') ?? '';
+        final selectedSchool = deviceStorage.read('selectedSchool') ?? '';
 
         if (selectedSchool.isNotEmpty) {
           Get.offAll(() => NavigationMenu(product: ProductModel.empty()));
@@ -54,9 +53,9 @@ class AuthenticationRepository extends GetxController {
           final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
           final selectedSchoolFirebase = userDoc.data()?['selectedSchool'] ?? '';
 
-          if (selectedSchoolFirebase.isNotEmpty) {
+          if (selectedSchoolFirebase.isEmpty) {
             // Save to local storage for future use
-            deviceStorage.write('SelectedSchool', selectedSchoolFirebase);
+            deviceStorage.write('selectedSchool', selectedSchoolFirebase);
             Get.offAll(() => NavigationMenu(product: ProductModel.empty()));
           } else {
             Get.offAll(() => const SelectSchoolScreen(firstTime: true));
@@ -78,9 +77,9 @@ class AuthenticationRepository extends GetxController {
 
 
 
-///*--------------------------- Email & Password sign-in ---------------------------*///
+  ///*--------------------------- Email & Password sign-in ---------------------------*///
 
-/// [EmailAuthentication] - LOGIN
+  /// [EmailAuthentication] - LOGIN
   Future<UserCredential?> loginWithEmailAndPassword(String email, String password) async {
     try {
       return await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -97,7 +96,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-/// [EmailAuthentication] - REGISTER
+  /// [EmailAuthentication] - REGISTER
   Future<UserCredential> registerWithEmailAndPassword(String email, String password) async {
     try {
       return await _auth.createUserWithEmailAndPassword(
@@ -117,7 +116,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-/// [EmailVerification] - MAIL VERIFICATION
+  /// [EmailVerification] - MAIL VERIFICATION
   Future<void> sendEmailVerification() async {
     try {
       await _auth.currentUser?.sendEmailVerification();
@@ -134,7 +133,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-/// [EmailAuthentication] = FORGET PASSWORD
+  /// [EmailAuthentication] = FORGET PASSWORD
   Future<void> sendPasswordResetEmail(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
@@ -170,7 +169,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-/// [GoogleAuthentication] - GOOGLE
+  /// [GoogleAuthentication] - GOOGLE
   Future<UserCredential?> signInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -212,7 +211,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-/// [Logout]
+  /// [Logout]
   Future<void> logout() async {
     try {
       await GoogleSignIn().signOut();
@@ -231,7 +230,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-/// [Delete Account]
+  /// [Delete Account]
   Future<void> deleteAccount() async {
     try {
       await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);

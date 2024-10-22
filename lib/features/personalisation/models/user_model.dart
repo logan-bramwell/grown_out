@@ -7,7 +7,6 @@ class UserModel {
   String firstName;
   String lastName;
   final String email;
-
   // String phoneNumber;
   String profilePicture;
   String selectedSchool;
@@ -49,7 +48,7 @@ class UserModel {
       'LastName': lastName,
       'Email': email,
       'ProfilePicture': profilePicture,
-      'SelectedSchool': selectedSchool,
+      'selectedSchool': selectedSchool,
     };
   }
 
@@ -64,7 +63,7 @@ class UserModel {
         lastName: data['LastName'] ?? '',
         email: data['Email'] ?? '',
         profilePicture: data['ProfilePicture'] ?? '',
-        selectedSchool: data['SelectedSchool'] ?? '',
+        selectedSchool: data['selectedSchool'] ?? '',
       );
     } else {
       return UserModel.empty();

@@ -2,15 +2,16 @@
 import 'package:get/get.dart';
 import 'package:whs_deals_app/common/widgets/loaders/loaders.dart';
 
+import '../../../data/abstract/base_data_table_controller.dart';
 import '../../../data/repositories/product/product_repository.dart';
 import '../models/product_model.dart';
 
 
-class ProductController extends GetxController {
+class ProductController extends TBaseController<ProductModel> {
   static ProductController get instance => Get.find();
 
-  final isLoading = false.obs;
-  final productRepository = Get.put(ProductRepository());
+
+  final _productRepository = Get.put(ProductRepository());
   RxList<ProductModel> recentProducts = <ProductModel>[].obs;
 
   @override
@@ -23,7 +24,7 @@ class ProductController extends GetxController {
     try {
       isLoading.value = true;
       // Fetch recent products from the database
-      final products = await productRepository.getRecentProducts();
+      final products = await _productRepository.getRecentProducts();
 
       recentProducts.assignAll(products);
     } catch (e) {
@@ -33,16 +34,34 @@ class ProductController extends GetxController {
       isLoading.value = false;
     }
   }
+
   Future<List<ProductModel>> fetchAllRecentProducts() async {
     try {
-
-      final products = await productRepository.getRecentProducts();
+      final products = await _productRepository.getRecentProducts();
       return products;
-
     } catch (e) {
       TLoaders.errorSnackBar(
           title: "Oh Snap!", message: "Failed to fetch recent products");
       return [];
     }
   }
+
+  @override
+  bool containsSearchQuery(ProductModel item, String query) {
+    // TODO: implement containsSearchQuery
+    throw UnimplementedError();
+  }
+
+
+  @override
+  Future<void> deleteItem(ProductModel item) async {
+    await _productRepository.deleteProduct(item);
+  }
+
+
+  @override
+  Future<List<ProductModel>> fetchItems() async {
+    return await _productRepository.getAllProducts();
+  }
 }
+

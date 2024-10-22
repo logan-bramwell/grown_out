@@ -67,7 +67,11 @@ class TTexts {
 
   static const String schoolSearchBar = "Search for your school";
 
-
+  static const String bannersStoragePath = "/Banners";
+  static const String brandsStoragePath = "/Brands";
+  static const String categoriesStoragePath = "/Categories";
+  static const String productsStoragePath = "/Products";
+  static const String usersStoragePath = "/Users";
 
 }
 

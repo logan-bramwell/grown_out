@@ -29,7 +29,8 @@ class UserController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
+
+  super.onInit();
     fetchUserRecord();
   }
 

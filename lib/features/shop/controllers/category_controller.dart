@@ -1,14 +1,13 @@
-
-
 import 'package:get/get.dart';
 import 'package:whs_deals_app/data/repositories/categories/category_repository.dart';
 
 import '../../../common/widgets/loaders/loaders.dart';
+import '../../../data/abstract/base_data_table_controller.dart';
 import '../models/category_model.dart';
 
-class CategoryController extends GetxController {
+class CategoryController extends TBaseController<CategoryModel> {
   static CategoryController get instance => Get.find();
-  final isLoading = false.obs;
+
   final _categoryRepository = Get.put(CategoryRepository());
   RxList<CategoryModel> allCategories = <CategoryModel>[].obs;
   RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
@@ -19,31 +18,42 @@ class CategoryController extends GetxController {
     super.onInit();
   }
 
+  Future<void> fetchCategories() async {
+    try {
+      isLoading.value = true;
+      // Fetch all categories from the database
+      final categories = await _categoryRepository.getAllCategories();
 
-/// - Load category data
-Future<void> fetchCategories() async {
-  try {
-    // show loader while loading categories
-    isLoading.value = true;
+      allCategories.assignAll(categories);
 
-    // Fetch categories from data source
-    final categories = await _categoryRepository.getAllCategories();
-
-    // update categories list
-    allCategories.assignAll(categories);
-
-    //filter featured categories
-    featuredCategories.assignAll(allCategories.where((category) => category.isFeatured && category.parentId.isEmpty).take(8).toList());
-
-
-  } catch (e) {
-    TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
-  } finally {
-    isLoading.value = false;
+      featuredCategories.assignAll(allCategories.where((category) => category.isFeatured && category.parentId.isEmpty).take(8).toList());
+    } catch (e) {
+      TLoaders.errorSnackBar(
+          title: "Oh Snap!", message: "Failed to fetch categories");
+    } finally {
+      isLoading.value = false;
+    }
   }
-}
 
-/// - Load selected category data
+  @override
+  Future<List<CategoryModel>> fetchItems() async {
+    return await _categoryRepository.getAllCategories();
+  }
 
-/// - Get Category or Sub-Category Products
+  @override
+  bool containsSearchQuery(CategoryModel item, String query) {
+    return item.name.toLowerCase().contains(query.toLowerCase());
+  }
+
+  /// Sorting related code
+  void sortByName(int sortColumnIndex, bool ascending) {
+    sortByProperty(sortColumnIndex, ascending, (CategoryModel category) => category.name.toLowerCase());
+  }
+
+  @override
+  Future<void> deleteItem(CategoryModel item) {
+    // TODO: implement deleteItem
+    throw UnimplementedError();
+  }
+
 }

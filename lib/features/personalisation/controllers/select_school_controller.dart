@@ -12,7 +12,7 @@ import '../screens/profile/widgets/profile.dart';
 class SelectSchoolController extends GetxController {
   static SelectSchoolController get instance => Get.find();
 
-  final userController = UserController.instance;
+  final userController = Get.put(UserController());
   final userRepository = Get.find<UserRepository>();
   final GlobalKey<FormState> selectSchoolFormKey = GlobalKey<FormState>();
   final selectedSchool = ''.obs;

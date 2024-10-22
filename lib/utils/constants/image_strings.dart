@@ -12,6 +12,7 @@ class TImages {
   // -- Social Logos
   static const String google = "assets/logos/google-icon.png";
   static const String facebook = "assets/logos/facebook-icon.png";
+  static const String defaultSingleImageIcon = "assets/images/content/default-image-icon.png";
 
   // -- Category Icons
   static const String sportIcon = "assets/icons/categories/icons8-bowling-64.png";
@@ -119,5 +120,27 @@ class TImages {
   static const String paystack = "assets/icons/payment_methods/paystack.png";
   static const String paytm = "assets/icons/payment_methods/paytm.png";
   static const String successfulPaymentIcon = "assets/icons/payment_methods/successful_payment_icon.png";
+
+
+  static const String errorIllustration = "assets/images/animations/no-connection.gif";
+  static const String ridingIllustration = "assets/images/animations/riding.gif";
+  static const String mediaIllustration = "assets/images/animations/media-3D.gif";
+  static const String couponIllustration = "assets/images/animations/coupon.gif";
+  static const String dashboardIllustration = "assets/images/animations/dashboard.gif";
+  static const String tableIllustration = "assets/images/animations/table.gif";
+
+  static const String creatingProductIllustration = "assets/images/animations/creating-product.gif";
+
+  static const String uploadingImageIllustration = "assets/images/animations/uploading-files-from-computer-to-cloud-storage.gif";
+
+
+
+  // -- Lottie Animations
+  static String defaultLoaderAnimation = "assets/images/animations/default-loader-animation.json";
+
+  static String congratulationAnimation = "assets/images/animations/congratulation.json";
+  static String uploadingAnimation = "assets/images/animations/uploading-document.json";
+  static String uploadingCompletedAnimation = "assets/images/animations/uploading-done.json";
+  static String tickCongratulationsConfettiAnimation = "assets/images/animations/tick-confetti.json";
 }
 

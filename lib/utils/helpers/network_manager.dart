@@ -1,11 +1,9 @@
-/*
-
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 
-import '../popups/loaders.dart';
+import '../../common/widgets/loaders/loaders.dart';
 
 /// Manages the network connectivity status and provides methods to check and handle connectivity changes.
 class NetworkManager extends GetxController {
@@ -19,7 +17,9 @@ class NetworkManager extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen((ConnectivityResult result) async {
+      await _updateConnectionStatus(result);
+    } as void Function(List<ConnectivityResult> event)?) as StreamSubscription<ConnectivityResult>;  // Added cast here
   }
 
   /// Update the connection status based on changes in connectivity and show a relevant popup for no internet connection.
@@ -52,6 +52,3 @@ class NetworkManager extends GetxController {
     _connectivitySubscription.cancel();
   }
 }
-
-
- */

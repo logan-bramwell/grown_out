@@ -7,7 +7,6 @@ import 'package:whs_deals_app/navigation_menu.dart';
 import 'package:whs_deals_app/utils/constants/sizes.dart';
 import '../../../shop/models/product_model.dart';
 import '../../controllers/select_school_controller.dart';
-import '../../controllers/user_controller.dart';
 
 class SelectSchoolScreen extends StatelessWidget {
   const SelectSchoolScreen({

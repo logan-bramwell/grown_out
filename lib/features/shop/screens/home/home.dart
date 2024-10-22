@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:whs_deals_app/common/widgets/shimmers/vertical_product_shimmer.dart';
-import 'package:whs_deals_app/features/shop/screens/product_details/product_detail.dart';
+import 'package:whs_deals_app/features/sell/screens/listing_page/listing_page.dart';
 import 'package:whs_deals_app/features/shop/screens/widgets/home_appbar.dart';
 import 'package:whs_deals_app/features/shop/screens/widgets/home_categories.dart';
 import '../../../../common/widgets/custom shapes/containers/primary_header_container.dart';
@@ -13,6 +13,7 @@ import '../../../../common/widgets/products/product_cards/product_card_vertical.
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../sell/screens/listing_page/new_listing_page.dart';
 import '../../controllers/product_controller.dart';
 import '../../models/product_model.dart';
 import '../all_products/all_products.dart';
@@ -28,7 +29,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: TColors.primary,
-        onPressed: () => Get.to(() => ProductDetailScreen(product: product)),
+        onPressed: () => Get.to(() => CreateProductMobileScreen()),
         child: const Icon(
           Iconsax.add,
           color: TColors.white,
